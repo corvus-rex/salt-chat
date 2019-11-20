@@ -21,8 +21,8 @@ class Users(db.Model):
 def index():
     currentUser = session.get('username')
     if currentUser in onlineUsers:
-#        connectionEvent()
-        return render_template('chat.html')
+    #connectionEvent()
+        return redirect('/chat')
     else:
         return redirect('/login')
 
