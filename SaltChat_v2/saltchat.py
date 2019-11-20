@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, session
+from flask import Flask, render_template, request, url_for, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
 
@@ -12,14 +12,23 @@ class Users(db.Model):
     password = db.Column(db.String, nullable=False)
     avatar = db.Column(db.Integer, nullable=False)
 
+@app.route('/')
+def index():
+    return redirect('/login')
+
 @app.route('/login', methods=['POST', 'GET'])
-def login():
+def loginPage():
     if request.method == 'POST':
         loginUsername = request.form['username']
         loginPassword = request.form['userpassword']
         login(loginUsername,loginPassword)
     else:
         return render_template('login.html')
+
+@app.route('/register')
+def registerPage():
+    return render_template('register.html')
+
 
 def login(username,password):
     user = Users.query.filter_by(username=username).first()
