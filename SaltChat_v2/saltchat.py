@@ -34,7 +34,6 @@ def registerPage():
     else:
         return render_template('register.html')
 
-
 def login(username, password):
     user = Users.query.filter_by(username=username).first()
     if user is None or user.password != password:
@@ -43,13 +42,23 @@ def login(username, password):
         return "You may enter the Kool Kids Klub"
 
 def register(username, password):
-    newUser = Users(username=username, password=password)
-    try:
-        db.session.add(newUser)
-        db.session.commit()
-        return redirect('/')
-    except:
-        return "Error in creating new user"
+    if existingusername(username) == True:
+        return "This username already exist!"
+    else:
+        newUser = Users(username=username, password=password)
+        try:
+            db.session.add(newUser)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "Error in creating new user"
+
+def existingusername(username):
+    existingUsers = Users.query.filter_by(username=username).count()
+    if existingUsers > 0:
+        return True
+    else:
+        return False
 
 if __name__ == "__main__":
     db.create_all()
