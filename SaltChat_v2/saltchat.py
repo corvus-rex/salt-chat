@@ -10,6 +10,7 @@ socketio = SocketIO(app)
 onlineUsers = []
 onlineUserAvatars = []
 app.secret_key = os.urandom(24)
+db.init_app(app)
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -51,6 +52,28 @@ def chatRoom():
     else:
         return render_template('chat.html')
 
+@socketio.on('connection event')
+def connectionEvent():
+    newUsername = session.get('username')
+    newUseravatar = session.get('avatar')
+    socketio.emit('someone connected', (newUsername, newUseravatar,  onlineUsers, onlineUserAvatars))
+
+@socketio.on('message')
+def handleMessage(msg):
+    author = session.get("username")
+    avatar = session.get('avatar')
+    socketio.emit("incoming message", (msg, author, avatar))
+
+@socketio.on('disconnect')
+def disconnect():
+    username = session['username']
+    indexOfUser = onlineUsers.index(username)
+    onlineUsers.pop(indexOfUser)
+    onlineUserAvatars.pop(indexOfUser)
+    session.pop("username", None)
+    session.clear()
+    socketio.emit('disconnect event', username)
+
 def login(username, password):
     user = Users.query.filter_by(username=username).first()
     if user is None or user.password != password:
@@ -63,7 +86,7 @@ def register(username, password):
     if existingusername(username) == True:
         return "This username already exist!"
     else:
-        newUser = Users(username=username, password=password)
+        newUser = Users(username=username, password=password, avatar=0)
 
         db.session.add(newUser)
         db.session.commit()
@@ -80,10 +103,15 @@ def existingusername(username):
 def updatesession(user):
     session['username'] = user.username
     session['userid'] = user.id
-    session['avatar'] = user.avatar
-    onlineUsers.append(user.username)
-    onlineUserAvatars.append(user.avatar)
+    if user.avatar == None:
+        user.avatar = 0
+        session['avatar'] = user.avatar
+        onlineUsers.append(user.username)
+        onlineUserAvatars.append(user.avatar)
+    else:
+        session['avatar'] = user.avatar
+        onlineUsers.append(user.username)
+        onlineUserAvatars.append(user.avatar)
 
 if __name__ == "__main__":
-    db.create_all()
-    app.run(debug=True)
+    socketio.run(app, debug=True)
