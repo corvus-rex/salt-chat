@@ -118,6 +118,7 @@ def updateavatar(newAvatar):
     username = session.get('username')
     user = Users.query.filter_by(username=username).first()
     user.avatar = newAvatar
+    db.session.commit()
     updatesessionavatar(user)
     return redirect('/chat')
 
