@@ -52,6 +52,19 @@ def chatRoom():
     else:
         return render_template('chat.html')
 
+@app.route('/avatars', methods=['POST', 'GET'])
+def avatarSelection():
+    if request.referrer is None:
+        return render_template('login.html')
+    else:
+        images = os.listdir(os.path.join(app.static_folder, "images"))
+        imagecount = len(images)
+        if request.method == 'POST':
+            newAvatar = request.form['avatar']
+            return updateavatar(newAvatar)
+        else:
+            return render_template('avatars.html', imagecount=imagecount)
+
 @socketio.on('connection event')
 def connectionEvent():
     newUsername = session.get('username')
@@ -79,19 +92,34 @@ def login(username, password):
     if user is None or user.password != password:
         return "YOU SHALL NOT PASS!"
     else:
-        updatesession(user)
-        return redirect('/')
+        if user.avatar == None:
+            user.avatar = 0
+            session['avatar'] = 0
+            updatesessionusername(user)
+            updatesessionavatar(user)
+            return redirect('/')
+        else:
+            updatesessionusername(user)
+            updatesessionavatar(user)
+            return redirect('/')
 
 def register(username, password):
     if existingusername(username) == True:
         return "This username already exist!"
     else:
-        newUser = Users(username=username, password=password, avatar=0)
-
+        newUser = Users(username=username, password=password)
         db.session.add(newUser)
         db.session.commit()
-        updatesession(newUser)
-        return redirect('/')
+        updatesessionusername(newUser)
+        return redirect('/avatars')
+
+def updateavatar(newAvatar):
+    session['avatar'] = newAvatar
+    username = session.get('username')
+    user = Users.query.filter_by(username=username).first()
+    user.avatar = newAvatar
+    updatesessionavatar(user)
+    return redirect('/chat')
 
 def existingusername(username):
     existingUsers = Users.query.filter_by(username=username).count()
@@ -100,18 +128,14 @@ def existingusername(username):
     else:
         return False
 
-def updatesession(user):
+def updatesessionusername(user):
     session['username'] = user.username
     session['userid'] = user.id
-    if user.avatar == None:
-        user.avatar = 0
-        session['avatar'] = user.avatar
-        onlineUsers.append(user.username)
-        onlineUserAvatars.append(user.avatar)
-    else:
-        session['avatar'] = user.avatar
-        onlineUsers.append(user.username)
-        onlineUserAvatars.append(user.avatar)
+    onlineUsers.append(user.username)
+
+def updatesessionavatar(user):
+    session['avatar'] = user.avatar
+    onlineUserAvatars.append(user.avatar)
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
