@@ -11,19 +11,21 @@
 </head>
 <body>
 <div id="login-container">
-    <h1> Welcome to SaltChat v2.0!</h1>
-    <p> Enter your credentials to enter the Kool Kids Klub!</p>
-    <form id = "login-form" action="/login" method="post">
-        <div class="login-details">
-            <input name="username" type="text" id="username" placeholder="Username" required>
+    <div id="container-transparent-background">
+        <div id="container-text">
+            <h1> Welcome to SaltChat v2.0!</h1>
+            <p id="subtitle"> Enter your credentials to enter the Kool Kids Klub!</p>
+            <form id = "login-form" action="/login" method="post">
+                <div class="login-details">
+                    <input name="username" type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="login-details">
+                    <input name="password" type="password" id="userpassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="sign-in-button">Sign in</button>
+        </form>
         </div>
-
-        <div class="login-details">
-            <input name="password" type="password" id="userpassword" placeholder="Password" required>
-        </div>
-
-        <button type="submit" class="sign-in-button">Sign in</button>
-    </form>
+    </div>
     <p id="registerask">Don't have an account? <a href="{{ url_for('registerPage') }}">Register here!</a></p>
 </div>
 

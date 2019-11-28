@@ -1,4 +1,48 @@
 body {
-    margin: 0;
-    font-family: sans-serif;
+    background-attachment: fixed;
+    background-image: url(https://vignette.wikia.nocookie.net/typemoon/images/e/e0/Wiki-background.jpeg);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ffffff;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 15px;
+}
+
+#login-container {
+    background: rgba(2, 2, 2, .82) url(https://inkarnate.com/assets/signup/border-2x-9abedab7fb8cbabb0883b4b317f20dc1a35050bc46ea45120494a0dbc3d5ba0e.png);
+    opacity: 0.82;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: -1;
+    height: 350px;
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    right: 10px;
+    bottom: 0;
+    margin: 15vh auto;
+    padding: 20px;
+    width: 420px;
+    text-align: center;
+}
+
+h1 {
+    padding-top: 15px;
+}
+
+#subtitle {
+    padding-top: 10px;
+}
+
+input[type=text] {
+    color: #1f1d1d;
+}
+
+input[type=password] {
+    color: #1f1d1d;
+}
+
+button {
+    color: #1f1d1d;
 }
