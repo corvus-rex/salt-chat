@@ -17,6 +17,7 @@ window.onload = function(){
             for(var c = 0; c < onlineUsers.length; c++){
                 console.log(onlineUsers[c])
                 addUserToOnlineDiv(onlineUsers[c], onlineUserAvatars[c]);
+                connectionBroadcast(username, true);
             }
             firstConnect = false;
         }

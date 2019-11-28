@@ -1,0 +1,77 @@
+body {
+    background-attachment: fixed;
+    background-image: url(https://vignette.wikia.nocookie.net/typemoon/images/e/e0/Wiki-background.jpeg);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ffffff;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 15px;
+}
+
+#chat-history {
+    background: rgba(2, 2, 2, .82);
+    background-size: cover;
+    overflow-y: scroll;
+    height: 550px;
+    width: 860px;
+    float: left;
+    display: inline-block;
+}
+
+.my-messages, .other-messages {
+    word-wrap: break-word;
+    padding: 5px;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+}
+
+.my-messages{
+background-color: #008497;
+color: white;
+text-align: right;
+margin-left: auto;
+min-height: 40px;
+vertical-align: middle;
+border-radius: 7px 0px 0px 7px;
+}
+
+.other-messages{
+background-color: #d6d6d6;
+border-radius: 0px 7px 7px 0px;
+}
+
+#input-box {
+    display: block;
+    width: 100%;
+}
+
+textarea {
+    color: #1f1d1d;
+    width: 1110px;
+    resize: none;
+}
+
+.messages-avatar {
+    width: 100px;
+    height: 100px;
+    object-fit:scale-down;
+    border-radius: 50%;
+    margin-right: 3px;
+    margin-left: 5px;
+}
+
+#online-users-container {
+    background: rgba(2, 2, 2, .82);
+    float: left;
+    display: inline-block;
+    width: 250px;
+    height: 550px;
+    overflow-y: scroll;
+}
+
+#online-users img {
+    width: 150px;
+    height: 150px;
+    object-fit: scale-down;
+}
