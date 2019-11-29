@@ -1,6 +1,6 @@
 window.onload = function(){
 
-    var socket = io.connect('http://' + document.domain + ':' + location.port, {transports: ['websocket']});
+    var socket = io.connect('wss://' + document.domain + ':' + location.port, {transports: ['websocket']});
     var firstConnect = true;
     var myUsername = "";
 
