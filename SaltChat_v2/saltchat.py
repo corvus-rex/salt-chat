@@ -47,9 +47,16 @@ def registerPage():
 
 @app.route('/chat', methods=['POST', 'GET'])
 def chatRoom():
+    username = session.get('username', '')
+    try:
+        user = Users.query.filter_by(username=username).first()
+    except:
+        print("Something wrong")
     if request.referrer is None:
         return render_template('login.html')
     else:
+        onlineUsers.append(user.username)
+        onlineUserAvatars.append(user.avatar)
         return render_template('chat.html')
 
 @app.route('/avatars', methods=['POST', 'GET'])
@@ -83,7 +90,7 @@ def disconnect():
     indexOfUser = onlineUsers.index(username)
     onlineUsers.pop(indexOfUser)
     onlineUserAvatars.pop(indexOfUser)
-    session.pop("username", None)
+    session.pop(username, None)
     session.clear()
     socketio.emit('disconnect event', username)
 
@@ -97,17 +104,17 @@ def login(username, password):
             session['avatar'] = 0
             updatesessionusername(user)
             updatesessionavatar(user)
-            return redirect('/')
+            return redirect('/chat')
         else:
             updatesessionusername(user)
             updatesessionavatar(user)
-            return redirect('/')
+            return redirect('/chat')
 
 def register(username, password):
     if existingusername(username) == True:
         return "This username already exist!"
     else:
-        newUser = Users(username=username, password=password)
+        newUser = Users(username=username, password=password, avatar=0)
         db.session.add(newUser)
         db.session.commit()
         updatesessionusername(newUser)
@@ -132,11 +139,11 @@ def existingusername(username):
 def updatesessionusername(user):
     session['username'] = user.username
     session['userid'] = user.id
-    onlineUsers.append(user.username)
+    #onlineUsers.append(user.username)
 
 def updatesessionavatar(user):
     session['avatar'] = user.avatar
-    onlineUserAvatars.append(user.avatar)
+    #onlineUserAvatars.append(user.avatar)
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)

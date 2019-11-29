@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec925142-9d7a-4e0c-af27-943baa1a6f80" name="Default Changelist" comment="" />
+    <list default="true" id="ec925142-9d7a-4e0c-af27-943baa1a6f80" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/static/chatroomscript.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/chatroomscript.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +19,14 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\Labrys_Networking\SaltChat_v2\network2-websocket\SaltChat_v2\.idea" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1TqBCjVlLY4vaj9zCH2oQfi6x6U" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />

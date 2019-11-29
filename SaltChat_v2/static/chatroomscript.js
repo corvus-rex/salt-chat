@@ -1,6 +1,6 @@
 window.onload = function(){
 
-    var socket = io.connect('http://127.0.0.1:5000', {transports: ['websocket']});
+    var socket = io.connect('http://' + document.domain + ':' + location.port, {transports: ['websocket']});
     var firstConnect = true;
     var myUsername = "";
 
@@ -25,6 +25,8 @@ window.onload = function(){
             addUserToOnlineDiv(username, avatar);
             connectionBroadcast(username, true);
         }
+        console.log(onlineUsers);
+        console.log(onlineUserAvatars)
     });
 
     socket.on('incoming message', function(message, author, avatar){
@@ -66,10 +68,10 @@ function addUserToOnlineDiv(displayName, avatar){
 
 function connectionBroadcast(username, connectionEvent){
     if(connectionEvent == true){
-        $("#messages").append('<div class = "connection-broadcast-message">' + displayName + " has joined the room. </div>");
+        $("#messages").append('<div class = "connection-broadcast-message">' + username + " has joined the room. </div>");
     }
     else{
-        $("#messages").append('<div class = "connection-broadcast-message">' + displayName + " has left the room. </div>");
+        $("#messages").append('<div class = "connection-broadcast-message">' + username + " has left the room. </div>");
     }
 }
 
