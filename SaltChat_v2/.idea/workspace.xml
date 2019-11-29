@@ -17,7 +17,14 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\Labrys_SoftEng\network2-websocket-double\network2-websocket\SaltChat_v2\.idea" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1TqBCjVlLY4vaj9zCH2oQfi6x6U" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
