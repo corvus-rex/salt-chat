@@ -1,6 +1,6 @@
 window.onload = function(){
 
-    var socket = io.connect('https://' + document.domain + ':' + location.port, {transports: ['websocket']});
+    var socket = io.connect('http://127.0.0.1:5000', {transports: ['websocket']});
     var firstConnect = true;
     var myUsername = "";
 
@@ -17,6 +17,7 @@ window.onload = function(){
             for(var c = 0; c < onlineUsers.length; c++){
                 console.log(onlineUsers[c])
                 addUserToOnlineDiv(onlineUsers[c], onlineUserAvatars[c]);
+                connectionBroadcast(username, true);
             }
             firstConnect = false;
         }

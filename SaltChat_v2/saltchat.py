@@ -10,7 +10,6 @@ socketio = SocketIO(app)
 onlineUsers = []
 onlineUserAvatars = []
 app.secret_key = os.urandom(24)
-app.config['SECRET_KEY'] = 'chaldea-master'
 db.init_app(app)
 
 class Users(db.Model):
@@ -84,7 +83,7 @@ def disconnect():
     indexOfUser = onlineUsers.index(username)
     onlineUsers.pop(indexOfUser)
     onlineUserAvatars.pop(indexOfUser)
-    session.pop('chaldea-master', None)
+    session.pop("username", None)
     session.clear()
     socketio.emit('disconnect event', username)
 
@@ -98,12 +97,11 @@ def login(username, password):
             session['avatar'] = 0
             updatesessionusername(user)
             updatesessionavatar(user)
-            db.session.commit()
-            return redirect('/chat')
+            return redirect('/')
         else:
             updatesessionusername(user)
             updatesessionavatar(user)
-            return redirect('/chat')
+            return redirect('/')
 
 def register(username, password):
     if existingusername(username) == True:
@@ -141,5 +139,4 @@ def updatesessionavatar(user):
     onlineUserAvatars.append(user.avatar)
 
 if __name__ == "__main__":
-    db.create_all()
     socketio.run(app, debug=True)
